@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人網頁</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        /* 自訂滾動條樣式 */
+        #factors-display::-webkit-scrollbar,
+        #primes-display::-webkit-scrollbar {
+            width: 6px;
+        }
+        #factors-display::-webkit-scrollbar-track,
+        #primes-display::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+        #factors-display::-webkit-scrollbar-thumb,
+        #primes-display::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 3px;
+        }
+        #factors-display::-webkit-scrollbar-thumb:hover,
+        #primes-display::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center px-4 py-20 bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div class="text-center max-w-3xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 text-gray-900">
+                <span class="text-indigo-600">四則運算、因數、質數計算</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 mb-8">
+                點擊了解更多或往下滑動，即可使用功能
+            </p>
+            <div class="mt-10">
+                <a href="#about" class="inline-block px-8 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-300 shadow-lg hover:shadow-xl">
+                    了解更多
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="py-20 px-4 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-12 text-gray-900">關於專案</h2>
+            <div class="prose prose-lg max-w-none text-center">
+                <p class="text-lg md:text-xl text-gray-700 leading-relaxed">
+                    這個網頁可以做三件事情
+                </p>
+                <div class="text-lg md:text-xl text-gray-700 leading-relaxed mt-6">
+                    <p>1. 計算或顯示一個數字</p>
+                    <p class="mt-2">2. 輸入數字，顯示這個數字的所有因數</p>
+                    <p class="mt-2">3. 輸入數字，顯示小於這個數字的所有質數</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-900">Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1: 數字顯示器 -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center">
+                        <span id="display-number" class="text-6xl font-bold text-white">0</span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-900">數字顯示器</h3>
+                        <p class="text-gray-600 mb-4">
+                            輸入數字或運算式（如：5+3、10-2、4*2、8/2），系統會計算並顯示結果。
+                        </p>
+                        <div class="space-y-3">
+                            <input type="text" id="number-input" placeholder="例如：5+3 或 10*2" 
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <button onclick="displayNumber()" 
+                                    class="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition duration-300">
+                                顯示數字
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2: 因數計算器 -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center p-4">
+                        <div class="text-center w-full">
+                            <div class="text-3xl font-bold text-white mb-2">因數</div>
+                            <div id="factors-display" class="text-white text-xs max-h-24 overflow-y-auto">等待計算...</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-900">因數計算器</h3>
+                        <p class="text-gray-600 mb-4">
+                            輸入一個數字，系統會計算並顯示該數字的所有因數。
+                        </p>
+                        <div class="space-y-3">
+                            <input type="number" id="factor-input" placeholder="輸入數字" 
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <button onclick="calculateFactors()" 
+                                    class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition duration-300">
+                                計算因數
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3: 質數生成器 -->
+                <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition duration-300 overflow-hidden">
+                    <div class="h-48 bg-gradient-to-br from-green-400 to-teal-500 flex items-center justify-center p-4">
+                        <div class="text-center w-full">
+                            <div class="text-3xl font-bold text-white mb-2">質數</div>
+                            <div id="primes-display" class="text-white text-xs max-h-24 overflow-y-auto">等待計算...</div>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-3 text-gray-900">質數生成器</h3>
+                        <p class="text-gray-600 mb-4">
+                            輸入一個數字，系統會找出並顯示所有小於該數字的質數。
+                        </p>
+                        <div class="space-y-3">
+                            <input type="number" id="prime-input" placeholder="輸入數字" 
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <button onclick="calculatePrimes()" 
+                                    class="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-300">
+                                計算質數
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-gray-400 mb-4">
+                © 2024 你的名字. All rights reserved.
+            </p>
+            <div class="flex justify-center space-x-6">
+                <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" 
+                   class="text-gray-400 hover:text-white transition duration-300 flex items-center space-x-2">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <span>GitHub</span>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 因數結果模態框 -->
+    <div id="factors-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[80vh] flex flex-col">
+            <div class="flex justify-between items-center p-6 border-b">
+                <h3 class="text-2xl font-bold text-gray-900">因數計算結果</h3>
+                <button onclick="closeFactorsModal()" class="text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+            </div>
+            <div id="factors-modal-content" class="p-6 overflow-y-auto flex-1">
+                <!-- 內容將在這裡顯示 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 質數結果模態框 -->
+    <div id="primes-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[80vh] flex flex-col">
+            <div class="flex justify-between items-center p-6 border-b">
+                <h3 class="text-2xl font-bold text-gray-900">質數計算結果</h3>
+                <button onclick="closePrimesModal()" class="text-gray-500 hover:text-gray-700 text-2xl font-bold">&times;</button>
+            </div>
+            <div id="primes-modal-content" class="p-6 overflow-y-auto flex-1">
+                <!-- 內容將在這裡顯示 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 功能 1: 顯示數字（支援加減乘除運算）
+        function displayNumber() {
+            const input = document.getElementById('number-input');
+            const display = document.getElementById('display-number');
+            const value = input.value.trim();
+            
+            if (value === '') {
+                display.textContent = '0';
+                alert('請輸入數字或運算式！');
+                return;
+            }
+            
+            try {
+                // 安全地計算數學表達式
+                // 只允許數字、運算符號和空格
+                const sanitized = value.replace(/[^0-9+\-*/().\s]/g, '');
+                if (sanitized !== value.replace(/\s/g, '')) {
+                    throw new Error('包含無效字符');
+                }
+                
+                // 使用 Function 構造函數來安全計算（比 eval 更安全）
+                const result = Function('"use strict"; return (' + sanitized + ')')();
+                
+                if (isNaN(result) || !isFinite(result)) {
+                    throw new Error('計算結果無效');
+                }
+                
+                // 格式化結果（如果是整數則不顯示小數點）
+                display.textContent = result % 1 === 0 ? result : result.toFixed(2);
+                input.value = '';
+            } catch (error) {
+                display.textContent = '0';
+                alert('請輸入有效的數字或運算式！\n例如：5+3、10-2、4*2、8/2');
+                input.value = '';
+            }
+        }
+
+        // 功能 2: 計算因數
+        function calculateFactors() {
+            const input = document.getElementById('factor-input');
+            const display = document.getElementById('factors-display');
+            const num = parseInt(input.value);
+            
+            if (isNaN(num) || num <= 0) {
+                display.textContent = '請輸入正整數！';
+                display.className = 'text-white text-xs';
+                return;
+            }
+            
+            const factors = [];
+            for (let i = 1; i <= num; i++) {
+                if (num % i === 0) {
+                    factors.push(i);
+                }
+            }
+            
+            // 所有因數結果都在模態框中顯示
+            if (factors.length > 0) {
+                showFactorsModal(factors, num);
+                display.textContent = `共 ${factors.length} 個因數（已顯示在彈窗中）`;
+                display.className = 'text-white text-xs';
+            } else {
+                display.textContent = '沒有因數';
+                display.className = 'text-white text-xs';
+            }
+            
+            input.value = '';
+        }
+
+        // 顯示因數模態框
+        function showFactorsModal(factors, num) {
+            const modal = document.getElementById('factors-modal');
+            const content = document.getElementById('factors-modal-content');
+            
+            let html = `<div class="mb-4">`;
+            html += `<p class="text-lg font-semibold text-gray-900 mb-2">數字 <span class="text-indigo-600">${num}</span> 的所有因數：</p>`;
+            html += `<p class="text-gray-600 mb-4">共 <span class="font-bold text-indigo-600">${factors.length}</span> 個因數</p>`;
+            html += `<div class="bg-gray-50 p-4 rounded-lg border border-gray-200">`;
+            html += `<div class="flex flex-wrap gap-2">`;
+            
+            factors.forEach((factor, index) => {
+                html += `<span class="inline-block px-3 py-1 bg-indigo-100 text-indigo-800 rounded-md font-medium">${factor}</span>`;
+                if ((index + 1) % 10 === 0) {
+                    html += `</div><div class="flex flex-wrap gap-2 mt-2">`;
+                }
+            });
+            
+            html += `</div></div></div>`;
+            content.innerHTML = html;
+            modal.classList.remove('hidden');
+        }
+
+        // 關閉因數模態框
+        function closeFactorsModal() {
+            document.getElementById('factors-modal').classList.add('hidden');
+        }
+
+        // 功能 3: 計算質數
+        function calculatePrimes() {
+            const input = document.getElementById('prime-input');
+            const display = document.getElementById('primes-display');
+            const num = parseInt(input.value);
+            
+            if (isNaN(num) || num <= 1) {
+                display.textContent = '請輸入大於 1 的數字！';
+                display.className = 'text-white text-xs';
+                return;
+            }
+            
+            const primes = [];
+            
+            // 找出所有小於 num 的質數
+            for (let i = 2; i < num; i++) {
+                let isPrime = true;
+                for (let j = 2; j <= Math.sqrt(i); j++) {
+                    if (i % j === 0) {
+                        isPrime = false;
+                        break;
+                    }
+                }
+                if (isPrime) {
+                    primes.push(i);
+                }
+            }
+            
+            // 所有質數結果都在模態框中顯示
+            if (primes.length === 0) {
+                display.textContent = '沒有質數';
+                display.className = 'text-white text-xs';
+            } else {
+                showPrimesModal(primes, num);
+                display.textContent = `共 ${primes.length} 個質數（已顯示在彈窗中）`;
+                display.className = 'text-white text-xs';
+            }
+            
+            input.value = '';
+        }
+
+        // 顯示質數模態框
+        function showPrimesModal(primes, num) {
+            const modal = document.getElementById('primes-modal');
+            const content = document.getElementById('primes-modal-content');
+            
+            let html = `<div class="mb-4">`;
+            html += `<p class="text-lg font-semibold text-gray-900 mb-2">小於 <span class="text-green-600">${num}</span> 的所有質數：</p>`;
+            html += `<p class="text-gray-600 mb-4">共 <span class="font-bold text-green-600">${primes.length}</span> 個質數</p>`;
+            html += `<div class="bg-gray-50 p-4 rounded-lg border border-gray-200">`;
+            html += `<div class="flex flex-wrap gap-2">`;
+            
+            primes.forEach((prime, index) => {
+                html += `<span class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-md font-medium">${prime}</span>`;
+                if ((index + 1) % 10 === 0) {
+                    html += `</div><div class="flex flex-wrap gap-2 mt-2">`;
+                }
+            });
+            
+            html += `</div></div></div>`;
+            content.innerHTML = html;
+            modal.classList.remove('hidden');
+        }
+
+        // 關閉質數模態框
+        function closePrimesModal() {
+            document.getElementById('primes-modal').classList.add('hidden');
+        }
+
+        // 支援 Enter 鍵觸發
+        document.getElementById('number-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                displayNumber();
+            }
+        });
+
+        document.getElementById('factor-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculateFactors();
+            }
+        });
+
+        document.getElementById('prime-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculatePrimes();
+            }
+        });
+
+        // 點擊模態框背景關閉
+        document.getElementById('factors-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeFactorsModal();
+            }
+        });
+
+        document.getElementById('primes-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePrimesModal();
+            }
+        });
+    </script>
+</body>
+</html>
+
